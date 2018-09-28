@@ -1,0 +1,22 @@
+---
+
+version: '3'
+services:
+  web:
+    build:
+      context: . # where to get files from, here, the current folder, can take path of other folders or folders inside the current one like folder
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  # the lines below are an alternative to docker exec -it to run thingsi n the container, it runs them automatically
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm","run","test"]
